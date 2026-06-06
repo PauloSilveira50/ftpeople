@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Conta — FTPeople</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="ft-auth-body">
+
+  <a href="{{ url_for('auth.login_form') }}" class="ft-auth-logo">
+    <span class="ft-brand-badge">FT</span>
+    <span class="ft-brand-name" style="color: #fff;">People</span>
+  </a>
+
+  <div class="ft-auth-card">
+    <h2 class="ft-auth-title">Criar conta</h2>
+
+    <form action="{{ url_for('auth.signup') }}" method="POST">
+      <div class="ft-form-group">
+        <label class="ft-label">E-mail</label>
+        <input type="email" name="email" class="ft-input" placeholder="seu@email.com" required>
+      </div>
+      <div class="ft-form-group">
+        <label class="ft-label">Senha</label>
+        <input type="password" name="password" class="ft-input" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="ft-auth-btn">Criar Conta</button>
+    </form>
+
+    <a href="{{ url_for('auth.login_form') }}" class="ft-auth-link">Já tenho uma conta — Entrar</a>
+  </div>
+
+</body>
+</html>

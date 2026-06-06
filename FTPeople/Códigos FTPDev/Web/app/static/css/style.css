@@ -1,0 +1,396 @@
+/* === FTPeople - Estilos Globais === */
+
+:root {
+  --primary: #0f172a;
+  --accent: #22c55e;
+  --accent-hover: #16a34a;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --bg: #f1f5f9;
+  --card-bg: #ffffff;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --header-height: 64px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* === CABEÇALHO === */
+
+.ft-header {
+  background: var(--primary);
+  height: var(--header-height);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+}
+
+.ft-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.ft-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.ft-brand-badge {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.ft-brand-name {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.ft-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ft-nav a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.ft-nav a:hover,
+.ft-nav a.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.ft-header-logout {
+  background: transparent;
+  border: 1px solid #475569;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+  cursor: pointer;
+}
+
+.ft-header-logout:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* === CONTEÚDO PRINCIPAL === */
+
+.ft-main {
+  padding: 36px 0 60px;
+}
+
+.ft-page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 24px;
+}
+
+/* === CARDS === */
+
+.ft-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.04);
+  padding: 28px 32px;
+}
+
+/* === TABELA === */
+
+.ft-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.ft-table thead th {
+  background: var(--primary);
+  color: #e2e8f0;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ft-table thead th:first-child { border-radius: 8px 0 0 0; }
+.ft-table thead th:last-child  { border-radius: 0 8px 0 0; }
+
+.ft-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.12s;
+}
+
+.ft-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.ft-table tbody td {
+  padding: 13px 16px;
+  color: var(--text);
+}
+
+.ft-table tbody td:last-child {
+  text-align: center;
+}
+
+/* === BOTÕES === */
+
+.ft-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.ft-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.ft-btn:active {
+  transform: translateY(0);
+}
+
+.ft-btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.ft-btn-warning {
+  background: var(--warning);
+  color: #fff;
+}
+
+.ft-btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.ft-btn-secondary {
+  background: #e2e8f0;
+  color: var(--text);
+}
+
+.ft-btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+/* === FORMULÁRIOS === */
+
+.ft-form-group {
+  margin-bottom: 20px;
+}
+
+.ft-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.ft-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--text);
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+.ft-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+.ft-input[readonly] {
+  background: #f8fafc;
+  color: var(--text-muted);
+}
+
+/* === ALERTAS === */
+
+.ft-alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border-left: 4px solid;
+}
+
+.ft-alert-success {
+  background: #f0fdf4;
+  border-color: var(--accent);
+  color: #166534;
+}
+
+.ft-alert-danger {
+  background: #fef2f2;
+  border-color: var(--danger);
+  color: #991b1b;
+}
+
+.ft-alert-info {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+/* === EMPTY STATE === */
+
+.ft-empty {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+}
+
+.ft-empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* === LOGIN / SIGNUP === */
+
+.ft-auth-body {
+  background: var(--primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.ft-auth-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  text-decoration: none;
+}
+
+.ft-auth-logo .ft-brand-badge {
+  font-size: 16px;
+  padding: 5px 12px;
+}
+
+.ft-auth-logo .ft-brand-name {
+  font-size: 22px;
+}
+
+.ft-auth-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 36px 40px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+.ft-auth-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+.ft-auth-link {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.ft-auth-link:hover {
+  text-decoration: underline;
+}
+
+.ft-auth-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  margin-top: 4px;
+}
+
+.ft-auth-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+/* === RODAPÉ === */
+
+.ft-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 20px 0 12px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}

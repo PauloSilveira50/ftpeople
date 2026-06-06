@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — FTPeople{% endblock %}
+
+{% block content %}
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+  <h1 class="ft-page-title" style="margin: 0;">Arquivos Ativos</h1>
+  <a href="{{ url_for('upload.upload_file') }}" class="ft-btn ft-btn-primary">+ Novo Upload</a>
+</div>
+
+<div class="ft-card" style="padding: 0; overflow: hidden;">
+  {% if projects %}
+    <table class="ft-table">
+      <thead>
+        <tr>
+          <th>Projeto</th>
+          <th>Arquivo</th>
+          <th>Criado em</th>
+          <th>Atualizado em</th>
+          <th style="text-align:center;">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in projects %}
+        <tr>
+          <td><strong>{{ p.name }}</strong></td>
+          <td style="color: var(--text-muted);">{{ p.filename }}</td>
+          <td style="color: var(--text-muted); font-size: 13px;">
+            {{ p.upload_date.strftime('%d/%m/%Y %H:%M') if p.upload_date else '—' }}
+          </td>
+          <td style="color: var(--text-muted); font-size: 13px;">
+            {{ p.update_date.strftime('%d/%m/%Y %H:%M') if p.update_date else '—' }}
+          </td>
+          <td style="text-align:center;">
+            <a href="{{ url_for('update.update_file') }}?project_name={{ p.name }}" class="ft-btn ft-btn-warning ft-btn-sm">Atualizar</a>
+            <a href="{{ url_for('delete.delete_file') }}?project_name={{ p.name }}" class="ft-btn ft-btn-danger ft-btn-sm" style="margin-left: 6px;">Deletar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="ft-empty">
+      <span class="ft-empty-icon">📂</span>
+      <p>Nenhum arquivo ativo encontrado.</p>
+      <a href="{{ url_for('upload.upload_file') }}" class="ft-btn ft-btn-primary">Fazer primeiro upload</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

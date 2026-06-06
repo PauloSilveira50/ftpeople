@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Servidores FTP — FTPeople{% endblock %}
+
+{% block content %}
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+  <h1 class="ft-page-title" style="margin: 0;">Servidores FTP</h1>
+</div>
+
+<!-- GRID DE SERVIDORES -->
+{% if servers %}
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 36px;">
+    {% for s in servers %}
+    <div class="ft-card" style="padding: 24px; position: relative; border-top: 4px solid {{ 'var(--accent)' if s.is_active else 'var(--border)' }};">
+
+      {% if s.is_active %}
+        <span style="position: absolute; top: 16px; right: 16px; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+          Ativo
+        </span>
+      {% endif %}
+
+      <div style="margin-bottom: 16px;">
+        <p style="font-size: 18px; font-weight: 700; color: var(--text); margin: 0 0 6px;">{{ s.name }}</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin: 0; font-family: monospace;">
+          {{ s.host }}:{{ s.port }}
+        </p>
+        <p style="font-size: 13px; color: var(--text-muted); margin: 4px 0 0;">
+          Usuário: <strong>{{ s.username }}</strong>
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-top: 8px;">
+        {% if not s.is_active %}
+          <form method="POST" action="{{ url_for('server.select_server', server_id=s.id) }}" style="margin: 0;">
+            <button type="submit" class="ft-btn ft-btn-primary ft-btn-sm">Selecionar</button>
+          </form>
+        {% else %}
+          <button class="ft-btn ft-btn-secondary ft-btn-sm" disabled style="opacity: 0.6; cursor: default;">Selecionado</button>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('server.delete_server', server_id=s.id) }}" style="margin: 0;"
+              onsubmit="return confirm('Remover o servidor {{ s.name }}?')">
+          <button type="submit" class="ft-btn ft-btn-danger ft-btn-sm">Remover</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="ft-card" style="margin-bottom: 36px;">
+    <div class="ft-empty">
+      <span class="ft-empty-icon">🖥️</span>
+      <p>Nenhum servidor cadastrado.</p>
+    </div>
+  </div>
+{% endif %}
+
+<!-- FORMULÁRIO ADICIONAR SERVIDOR -->
+<div class="ft-card" style="max-width: 600px;">
+  <h2 style="font-size: 16px; font-weight: 700; margin: 0 0 20px; color: var(--text);">Adicionar Servidor</h2>
+  <form method="POST" action="{{ url_for('server.add_server') }}">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div class="ft-form-group" style="margin-bottom: 0;">
+        <label class="ft-label">Nome / Apelido *</label>
+        <input type="text" name="name" class="ft-input" placeholder="Ex: Servidor Dev" required>
+      </div>
+      <div class="ft-form-group" style="margin-bottom: 0;">
+        <label class="ft-label">Host *</label>
+        <input type="text" name="host" class="ft-input" placeholder="Ex: ftp.exemplo.com" required>
+      </div>
+      <div class="ft-form-group" style="margin-bottom: 0;">
+        <label class="ft-label">Porta</label>
+        <input type="number" name="port" class="ft-input" placeholder="21" value="21" min="1" max="65535">
+      </div>
+      <div class="ft-form-group" style="margin-bottom: 0;">
+        <label class="ft-label">Usuário *</label>
+        <input type="text" name="username" class="ft-input" placeholder="Ex: ftp_user" required>
+      </div>
+      <div class="ft-form-group" style="margin-bottom: 0; grid-column: 1 / -1;">
+        <label class="ft-label">Senha *</label>
+        <input type="password" name="password" class="ft-input" placeholder="••••••••" required>
+      </div>
+    </div>
+    <div style="margin-top: 20px;">
+      <button type="submit" class="ft-btn ft-btn-primary">Adicionar Servidor</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

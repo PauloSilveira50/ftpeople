@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Novo Upload — FTPeople{% endblock %}
+
+{% block content %}
+<div style="max-width: 560px; margin: 0 auto;">
+  <h1 class="ft-page-title">Novo Upload</h1>
+
+  <div class="ft-card">
+    <form action="" method="POST" enctype="multipart/form-data">
+      <div class="ft-form-group">
+        <label class="ft-label">Nome do Projeto</label>
+        <input type="text" name="project_name" class="ft-input" placeholder="Ex: Relatório Mensal" required>
+      </div>
+      <div class="ft-form-group">
+        <label class="ft-label">Arquivo</label>
+        <input type="file" name="file" class="ft-input" required>
+      </div>
+      <div style="display: flex; gap: 12px; margin-top: 8px;">
+        <button type="submit" class="ft-btn ft-btn-primary">Enviar Arquivo</button>
+        <a href="{{ url_for('upload.index') }}" class="ft-btn ft-btn-secondary">Voltar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

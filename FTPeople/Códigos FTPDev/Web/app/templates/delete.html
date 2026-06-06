@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Deletar Arquivo — FTPeople{% endblock %}
+
+{% block content %}
+<div style="max-width: 480px; margin: 0 auto;">
+  <h1 class="ft-page-title">Deletar Arquivo</h1>
+
+  <div class="ft-card">
+    <div class="ft-alert ft-alert-danger" style="margin-bottom: 24px;">
+      Atenção: esta ação é irreversível. O arquivo será removido permanentemente.
+    </div>
+
+    <form method="POST">
+      <div class="ft-form-group">
+        <label class="ft-label">Projeto</label>
+        <input type="text" name="project_name" class="ft-input" value="{{ request.args.get('project_name', '') }}" readonly>
+      </div>
+      <div style="display: flex; gap: 12px; margin-top: 8px;">
+        <button type="submit" class="ft-btn ft-btn-danger">Confirmar Exclusão</button>
+        <a href="{{ url_for('upload.index') }}" class="ft-btn ft-btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

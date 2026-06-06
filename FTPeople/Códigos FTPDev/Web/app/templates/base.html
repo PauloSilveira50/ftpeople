@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}FTPeople{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header class="ft-header">
+    <div class="container">
+      <a href="{{ url_for('upload.index') }}" class="ft-brand">
+        <span class="ft-brand-badge">FT</span>
+        <span class="ft-brand-name">People</span>
+      </a>
+
+      <nav class="ft-nav">
+        <a href="{{ url_for('upload.index') }}" {% if request.endpoint == 'upload.index' %}class="active"{% endif %}>
+          Dashboard
+        </a>
+        <a href="{{ url_for('upload.upload_file') }}" {% if request.endpoint == 'upload.upload_file' %}class="active"{% endif %}>
+          Novo Upload
+        </a>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 10px;">
+        {% if session.get('server_name') %}
+          <a href="{{ url_for('server.choose_server') }}"
+             style="display: flex; align-items: center; gap: 6px; text-decoration: none;
+                    background: rgba(255,255,255,0.07); border: 1px solid #334155;
+                    border-radius: 8px; padding: 6px 12px;">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0;"></span>
+            <span style="font-size: 13px; color: #e2e8f0; font-weight: 500; max-width: 140px;
+                         overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+              {{ session['server_name'] }}
+            </span>
+            <span style="font-size: 11px; color: #64748b; margin-left: 2px;">trocar</span>
+          </a>
+        {% endif %}
+        <a href="{{ url_for('auth.logout') }}" class="ft-header-logout">Sair</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO -->
+  <main class="ft-main">
+    <div class="container" style="max-width: 1140px; margin: 0 auto; padding: 0 24px;">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="ft-alert ft-alert-{{ 'danger' if category == 'error' else 'success' }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <footer class="ft-footer">
+    FTPeople &copy; {{ 2025 }}
+  </footer>
+
+</body>
+</html>
