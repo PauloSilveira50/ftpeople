@@ -47,6 +47,81 @@
       font-family: monospace;
       margin: 0;
     }
+
+    /* Botão "+" */
+    .btn-add-server {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, transform 0.1s;
+      flex-shrink: 0;
+    }
+    .btn-add-server:hover {
+      background: var(--accent-hover);
+      transform: scale(1.1);
+    }
+
+    /* Modal overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-box {
+      background: #fff;
+      border-radius: 14px;
+      padding: 32px 36px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+      position: relative;
+    }
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0 0 20px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: var(--text-muted);
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+    .modal-close:hover {
+      color: var(--danger);
+    }
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .modal-grid .full {
+      grid-column: 1 / -1;
+    }
   </style>
 </head>
 <body class="ft-auth-body">
@@ -57,8 +132,13 @@
   </a>
 
   <div class="ft-auth-card" style="max-width: 420px;">
-    <h2 class="ft-auth-title">Escolha o servidor</h2>
-    <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin: -12px 0 20px;">
+
+    <!-- Cabeçalho com título e botão "+" -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+      <h2 class="ft-auth-title" style="margin: 0;">Escolha o servidor</h2>
+      <button class="btn-add-server" title="Criar servidor" onclick="openModal()">+</button>
+    </div>
+    <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin: 0 0 20px;">
       Selecione com qual servidor deseja trabalhar
     </p>
 
@@ -90,6 +170,58 @@
       Sair da conta
     </a>
   </div>
+
+  <!-- Modal criar servidor -->
+  <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()" title="Fechar">&times;</button>
+      <h3 class="modal-title">Criar servidor</h3>
+
+      <form method="POST" action="{{ url_for('server.create_server') }}">
+        <div class="modal-grid">
+          <div class="ft-form-group" style="margin-bottom: 0;">
+            <label class="ft-label">Nome / Apelido *</label>
+            <input type="text" name="name" class="ft-input" placeholder="Ex: Servidor Dev" required>
+          </div>
+          <div class="ft-form-group" style="margin-bottom: 0;">
+            <label class="ft-label">Host *</label>
+            <input type="text" name="host" class="ft-input" placeholder="ftp.exemplo.com" required>
+          </div>
+          <div class="ft-form-group" style="margin-bottom: 0;">
+            <label class="ft-label">Porta</label>
+            <input type="number" name="port" class="ft-input" placeholder="21" value="21" min="1" max="65535">
+          </div>
+          <div class="ft-form-group" style="margin-bottom: 0;">
+            <label class="ft-label">Usuário *</label>
+            <input type="text" name="username" class="ft-input" placeholder="ftp_user" required>
+          </div>
+          <div class="ft-form-group full" style="margin-bottom: 0;">
+            <label class="ft-label">Senha *</label>
+            <input type="password" name="password" class="ft-input" placeholder="••••••••" required>
+          </div>
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+          <button type="submit" class="ft-btn ft-btn-primary" style="flex: 1;">Criar servidor</button>
+          <button type="button" class="ft-btn ft-btn-secondary" onclick="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+    }
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 
 </body>
 </html>
