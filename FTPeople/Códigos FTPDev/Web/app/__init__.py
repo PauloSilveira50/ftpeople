@@ -10,11 +10,14 @@ _SEED_SERVERS = [
     {"name": "Servidor Produção", "host": "ftp.producao.local", "port": 21, "username": "prod_user",    "password": "prod_pass"},
 ]
 
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
     app.config['SECRET_KEY'] = 'dev'
+
+    if test_config:
+        app.config.update(test_config)
 
     db.init_app(app)
 

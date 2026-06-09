@@ -3,6 +3,7 @@ from datetime import datetime
 from .. import db
 from ..models.project import Project
 import os
+import shutil
 
 delete_bp = Blueprint('delete', __name__, url_prefix="/delete")
 
@@ -37,7 +38,9 @@ def delete_file():
 
         filepath = os.path.join("uploads", str(server_id), project.filename)
         if os.path.exists(filepath):
-            os.remove(filepath)
+            trash_folder = os.path.join("uploads", str(server_id), "excluidos")
+            os.makedirs(trash_folder, exist_ok=True)
+            shutil.move(filepath, os.path.join(trash_folder, project.filename))
 
         project.delete_date = datetime.now()
         db.session.commit()
