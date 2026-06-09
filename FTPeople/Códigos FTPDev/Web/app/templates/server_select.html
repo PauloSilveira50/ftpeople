@@ -143,30 +143,30 @@
     </p>
 
     {% if servers %}
-      <form method="POST" action="{{ url_for('server.choose_server') }}">
-        {% for s in servers %}
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <label class="server-option" style="flex: 1; margin-bottom: 0;">
-              <input type="radio" name="server_id" value="{{ s.id }}"
-                {% if loop.first %}checked{% endif %}>
-              <div class="server-option-info">
-                <p class="server-option-name">{{ s.name }}</p>
-                <p class="server-option-host">{{ s.host }}:{{ s.port }}</p>
-              </div>
-            </label>
-            <a href="{{ url_for('server.edit_server', server_id=s.id) }}"
-               style="padding: 6px 10px; font-size: 12px; border: 1px solid var(--border); border-radius: 6px; color: var(--text-muted); text-decoration: none; white-space: nowrap;"
-               title="Editar">✏️</a>
-            <form method="POST" action="{{ url_for('server.delete_server', server_id=s.id) }}" style="margin: 0;"
-                  onsubmit="return confirm('Remover o servidor {{ s.name }}?')">
-              <button type="submit"
-                      style="padding: 6px 10px; font-size: 12px; border: 1px solid #fca5a5; border-radius: 6px; background: none; color: #ef4444; cursor: pointer; white-space: nowrap;"
-                      title="Remover">🗑️</button>
-            </form>
-          </div>
-          {% if not loop.last %}<div style="margin-bottom: 10px;"></div>{% endif %}
-        {% endfor %}
+      {% for s in servers %}
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <label class="server-option" style="flex: 1; margin-bottom: 0;">
+            <input type="radio" name="server_id" value="{{ s.id }}" form="choose-form"
+              {% if loop.first %}checked{% endif %}>
+            <div class="server-option-info">
+              <p class="server-option-name">{{ s.name }}</p>
+              <p class="server-option-host">{{ s.host }}:{{ s.port }}</p>
+            </div>
+          </label>
+          <a href="{{ url_for('server.edit_server', server_id=s.id) }}"
+             style="padding: 6px 10px; font-size: 12px; border: 1px solid var(--border); border-radius: 6px; color: var(--text-muted); text-decoration: none; white-space: nowrap;"
+             title="Editar">✏️</a>
+          <form method="POST" action="{{ url_for('server.delete_server', server_id=s.id) }}" style="margin: 0;"
+                onsubmit="return confirm('Remover o servidor {{ s.name }}?')">
+            <button type="submit"
+                    style="padding: 6px 10px; font-size: 12px; border: 1px solid #fca5a5; border-radius: 6px; background: none; color: #ef4444; cursor: pointer; white-space: nowrap;"
+                    title="Remover">🗑️</button>
+          </form>
+        </div>
+        {% if not loop.last %}<div style="margin-bottom: 10px;"></div>{% endif %}
+      {% endfor %}
 
+      <form id="choose-form" method="POST" action="{{ url_for('server.choose_server') }}">
         <button type="submit" class="ft-auth-btn" style="margin-top: 14px;">
           Entrar no servidor
         </button>
