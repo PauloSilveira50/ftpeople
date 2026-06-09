@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Editar Servidor — FTPeople{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px;">
+  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+    <a href="{{ url_for('server.choose_server') }}" class="ft-btn ft-btn-secondary ft-btn-sm">← Voltar</a>
+    <h1 class="ft-page-title" style="margin: 0;">Editar Servidor</h1>
+  </div>
+
+  <div class="ft-card">
+    <form method="POST">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div class="ft-form-group" style="margin-bottom: 0;">
+          <label class="ft-label">Nome / Apelido *</label>
+          <input type="text" name="name" class="ft-input" value="{{ server.name }}" required>
+        </div>
+        <div class="ft-form-group" style="margin-bottom: 0;">
+          <label class="ft-label">Host *</label>
+          <input type="text" name="host" class="ft-input" value="{{ server.host }}" required>
+        </div>
+        <div class="ft-form-group" style="margin-bottom: 0;">
+          <label class="ft-label">Porta</label>
+          <input type="number" name="port" class="ft-input" value="{{ server.port }}" min="1" max="65535">
+        </div>
+        <div class="ft-form-group" style="margin-bottom: 0;">
+          <label class="ft-label">Usuário *</label>
+          <input type="text" name="username" class="ft-input" value="{{ server.username }}" required>
+        </div>
+        <div class="ft-form-group" style="margin-bottom: 0; grid-column: 1 / -1;">
+          <label class="ft-label">Senha <span style="font-weight: 400; color: var(--text-muted);">(deixe em branco para manter)</span></label>
+          <input type="password" name="password" class="ft-input" placeholder="••••••••">
+        </div>
+      </div>
+      <div style="margin-top: 20px; display: flex; gap: 8px;">
+        <button type="submit" class="ft-btn ft-btn-primary">Salvar Alterações</button>
+        <a href="{{ url_for('server.choose_server') }}" class="ft-btn ft-btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

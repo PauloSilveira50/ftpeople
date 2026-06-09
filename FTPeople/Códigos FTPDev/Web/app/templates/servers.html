@@ -37,6 +37,8 @@
           <button class="ft-btn ft-btn-secondary ft-btn-sm" disabled style="opacity: 0.6; cursor: default;">Selecionado</button>
         {% endif %}
 
+        <a href="{{ url_for('server.edit_server', server_id=s.id) }}" class="ft-btn ft-btn-secondary ft-btn-sm">Editar</a>
+
         <form method="POST" action="{{ url_for('server.delete_server', server_id=s.id) }}" style="margin: 0;"
               onsubmit="return confirm('Remover o servidor {{ s.name }}?')">
           <button type="submit" class="ft-btn ft-btn-danger ft-btn-sm">Remover</button>
